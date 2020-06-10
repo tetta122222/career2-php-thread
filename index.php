@@ -10,12 +10,13 @@
     <h1>掲示板App</h1>
     <h2>投稿フォーム</h2>
     <form action="index.php" method="post">
+      <div class="form_child">
         <input type="text" name="name" placeholder="名前" required >
         <br>
         <textarea type="text" name="naiyou"class="form" required ></textarea>
         <br>
         <input type="submit" name="aaa" placeholder="あああああ" class="sou">
-        
+      </div>  
     </form>
     <form action="index.php" method="post">
     <button type="submit" name="remove" class="sou era">全消しボタン</button>
