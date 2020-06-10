@@ -27,6 +27,7 @@
     <?php
         //echo date('Y年m月d日 H時i分s秒');
         //echo("<br>");
+        
         $file = "toukou.txt";
         if(isset($_POST['remove'])) {
           $fp = fopen('toukou.txt', 'a');
@@ -34,8 +35,9 @@
           ftruncate($fp,0);
           fclose($fp);
         }
-        else if($_POST['aaa']) {
+        else if(@$_POST['aaa']) {
             //POSTされたときは書き込み処理をする
+            date_default_timezone_set("Asia/Tokyo");
             $fp = fopen('toukou.txt', 'a');
             if ($fp == false) {
               print "このファイルには書き込みできません。<br>\n";
@@ -63,8 +65,6 @@
               $ret_str = file_get_contents( $file );
               echo($ret_str);
               fclose($fp);
-
-
               
             }
             
@@ -128,6 +128,8 @@
     
     </style>
     
+    <script>
     
+    </script>
 </body>
 </html>
