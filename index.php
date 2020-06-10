@@ -51,7 +51,7 @@ function writeData() {
 
             flock($fp, LOCK_UN);
         }else{
-            print('ファイルロックに失敗しました');
+            print('ファイルロックsssssに失敗しました');
         }
     }
 
