@@ -64,10 +64,7 @@
               echo($ret_str);
               fclose($fp);
 
-              //ブラウザのリロード対策
-              $redirect_url = $_SERVER['HTTP_REFERER'];
-              header("Location: $redirect_url");
-              exit;
+
               
             }
             
