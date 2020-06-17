@@ -80,6 +80,7 @@
       text-align:center;
     }
     h1{
+      background:skyblue;
       text-align:center;
     }
     .name{
