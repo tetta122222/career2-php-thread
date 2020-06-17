@@ -81,8 +81,8 @@
     }
     .name{
       width: 30%;
-    margin-right: calc(100%/3);
-    margin-left: calc(100%/3);
+      margin-right: calc(100%/3);
+      margin-left: calc(100%/3);
     }
     h2{
       text-align:center;
@@ -126,8 +126,10 @@
       list-style-type:none;
     }
     .form{
-      width:50%;
+      width: 30%;
       height:100px;
+      margin-right: calc(100%/3);
+      margin-left: calc(100%/3);
       resize:none;
     }
     
