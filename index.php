@@ -77,12 +77,13 @@
     ?>
     <style>
     body{
-      margin:0 8px;
+      margin:0;
     }
     p{
       text-align:center;
     }
     h1{
+      margin-top:0;
       padding:5px;
       background:skyblue;
       text-align:center;
