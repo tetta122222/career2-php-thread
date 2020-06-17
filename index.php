@@ -142,6 +142,11 @@
         width:50%;
         margin:0 25% 0 25%;
       }
+      .form{
+        width:50%;
+        height:25vh;
+        margin:10% 25% 0 25%;
+      }
     }
     
     </style>
