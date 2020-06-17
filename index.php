@@ -140,14 +140,14 @@
       }
       .name{
         width:60%;
-        margin-right:40%;
-        margin-left:40%;
+        margin-right:20%;
+        margin-left:20%;
       }
       .form{
         width:60%;
         margin-top:5%;
-        margin-right:40%;
-        margin-left:40%;
+        margin-right:20%;
+        margin-left:20%;
       }
     }
     
