@@ -133,6 +133,16 @@
       margin-left: calc(100%/3);
       resize:none;
     }
+    @media(max-width:480px){
+      .sou{
+        width:50%;
+        margin:0 25% 0 25%;
+      }
+      .name{
+        width:50%;
+        margin:0 25% 0 25%;
+      }
+    }
     
     </style>
     
