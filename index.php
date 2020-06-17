@@ -11,7 +11,7 @@
     <h2>投稿フォーム</h2>
     <form action="index.php" method="post">
       <div class="form_child">
-        <input type="text" name="name" placeholder="名前" required >
+        <input type="text" name="name" placeholder="名前" class="name" required >
         <br>
         <textarea type="text" name="naiyou"class="form" required ></textarea>
         <br>
@@ -19,7 +19,7 @@
       </div>  
     </form>
     <form action="index.php" method="post">
-    <button type="submit" name="remove" class="sou era">全消しボタン</button>
+        <button type="submit" name="remove" class="sou era">全消しボタン</button>
     </form>
     <hr>
     <h2>スレッド</h2>
@@ -79,7 +79,11 @@
     h1{
       text-align:center;
     }
-    
+    .name{
+      width: 30%;
+    margin-right: calc(100%/3);
+    margin-left: calc(100%/3);
+    }
     h2{
       text-align:center;
     }
