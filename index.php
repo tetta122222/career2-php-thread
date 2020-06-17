@@ -93,7 +93,7 @@
     }
     .sou{
       font-weight:bold;
-      width:25%;
+      width:20%;
       margin-right:40%;
       margin-left:40%;
       height:2rem;
