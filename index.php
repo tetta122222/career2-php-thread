@@ -136,16 +136,18 @@
     @media(max-width:480px){
       .sou{
         width:50%;
-        margin:0 25% 0 25%;
+        margin:5% 25% 0 25%;
       }
       .name{
-        width:50%;
-        margin:0 25% 0 25%;
+        width:60%;
+        margin-right:calc(100%/3);
+        margin-left:calc(100%/3);
       }
       .form{
-        width:50%;
-        height:25vh;
-        margin:10% 25% 0 25%;
+        width:60%;
+        margin-top:5%;
+        margin-right:calc(100%/3);
+        margin-left:calc(100%/3);
       }
     }
     
