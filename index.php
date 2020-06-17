@@ -93,7 +93,9 @@
     }
     .sou{
       font-weight:bold;
-      width:5rem;
+      width:25%;
+      margin-right:40%;
+      margin-left:40%;
       height:2rem;
       background:transparent;
       color:#7a7ae0;
