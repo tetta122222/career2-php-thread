@@ -76,6 +76,9 @@
           //$text = htmlspecialchars($text);
     ?>
     <style>
+    p{
+      text-align:center;
+    }
     h1{
       text-align:center;
     }
