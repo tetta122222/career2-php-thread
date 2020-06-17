@@ -16,11 +16,10 @@
         <textarea type="text" name="naiyou"class="form" required ></textarea>
         <br>
         <input type="submit" name="aaa" placeholder="あああああ" class="sou">
+        <button type="submit" name="remove" class="sou era">全消しボタン</button>
       </div>  
     </form>
-    <form action="index.php" method="post">
-    <button type="submit" name="remove" class="sou era">全消しボタン</button>
-    </form>
+
     <hr>
     <h2>スレッド</h2>
     <hr>
