@@ -83,6 +83,7 @@
       text-align:center;
     }
     .name{
+      word-break: break-word;
       width: 30%;
       margin-right: calc(100%/3);
       margin-left: calc(100%/3);
@@ -130,6 +131,7 @@
       list-style-type:none;
     }
     .form{
+      word-break: break-word;
       width: 30%;
       height:100px;
       margin-right: calc(100%/3);
