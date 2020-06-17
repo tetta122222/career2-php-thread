@@ -76,10 +76,14 @@
           //$text = htmlspecialchars($text);
     ?>
     <style>
+    body{
+      margin:0 8px;
+    }
     p{
       text-align:center;
     }
     h1{
+      padding:5px;
       background:skyblue;
       text-align:center;
     }
