@@ -148,6 +148,7 @@
       }
       .form{
         width:70%;
+        height:30vh;
         margin-top:5%;
         margin-right:15%;
         margin-left:15%;
