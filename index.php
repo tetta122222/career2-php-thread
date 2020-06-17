@@ -138,19 +138,19 @@
     }
     @media(max-width:480px){
       .sou{
-        width:50%;
-        margin:5% 25% 0 25%;
+        width:60%;
+        margin:5% 20% 0 20%;
       }
       .name{
-        width:60%;
-        margin-right:20%;
-        margin-left:20%;
+        width:70%;
+        margin-right:15%;
+        margin-left:15%;
       }
       .form{
-        width:60%;
+        width:70%;
         margin-top:5%;
-        margin-right:20%;
-        margin-left:20%;
+        margin-right:15%;
+        margin-left:15%;
       }
     }
     
