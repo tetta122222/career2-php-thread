@@ -129,9 +129,10 @@
     }
     li{
       list-style-type:none;
+      word-break: break-word;
     }
     .form{
-      word-break: break-word;
+      
       width: 30%;
       height:100px;
       margin-right: calc(100%/3);
