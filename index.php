@@ -7,7 +7,7 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>掲示板App</h1>
+    <h1>掲示板Appppppp</h1>
     <h2>投稿フォーム</h2>
     <form action="index.php" method="post">
       <div class="form_child">
