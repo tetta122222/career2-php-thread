@@ -120,7 +120,6 @@
       width:80vw;
     }
     .era{
-      width:7rem;
       border:red solid 3px;
       color:red;
     }
