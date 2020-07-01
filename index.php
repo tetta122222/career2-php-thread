@@ -1,3 +1,32 @@
+<?php
+  session_start();
+  new Thread();
+
+  function setToken()
+  {
+      $token = sha1(uniqid(mt_rand(), true));
+      $_SESSION['token'] = $token;
+  }
+
+  function checkToken()
+  {
+      if (empty($_SESSION['token'])) {
+          echo "Sessionが空です";
+          exit;
+      }
+
+      if (($_SESSION['token']) !== $_POST['token']) {
+          echo "不正な投稿です。";
+          exit;
+      }
+
+      $_SESSION['token'] = null;
+  }
+
+  if (empty($_SESSION['token'])) {
+      setToken();
+  }
+?>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -26,8 +55,10 @@
     <hr>
 
     <?php
-        //echo date('Y年m月d日 H時i分s秒');
-        //echo("<br>");
+        date_default_timezone_set("Asia/Tokyo");
+        const THREAD_FILE = 'toukou.txt';      
+        require_once 'Thread.php';
+        $thread = new Thread('掲示板App');
         
         $file = "toukou.txt";
         if(isset($_POST['remove'])) {
@@ -38,8 +69,6 @@
         }
         else if(@$_POST['aaa']) {
             //POSTされたときは書き込み処理をする
-            date_default_timezone_set("Asia/Tokyo");
-            $fp = fopen('toukou.txt', 'a');
             if ($fp == false) {
               print "このファイルには書き込みできません。<br>\n";
             }
@@ -70,7 +99,7 @@
             }
             
           }
-
+          echo $thread->getList();
 
           //$text = file_get_contents($file);
           //$text = htmlspecialchars($text);
