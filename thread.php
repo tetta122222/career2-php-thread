@@ -2,7 +2,7 @@
     class Thread {
 
         private  $name;
-        private const THREAD_FILE = "thread.txt";
+        private const THREAD_FILE = "toukou.txt";
 
         public function __construct(string $name)
         {
