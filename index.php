@@ -68,7 +68,7 @@ if (empty($_SESSION['token'])) {
 date_default_timezone_set('Asia/Tokyo');
 const THREAD_FILE = 'thread.txt';
 
-require_once './Thread.php';
+require_once 'Thread.php';
 $thread = new Thread('掲示板App');
 
 function writeData()
