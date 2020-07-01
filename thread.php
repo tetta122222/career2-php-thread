@@ -20,5 +20,5 @@
     
         public function delete() {
     
-        }
-?>
+        } 
+    }
