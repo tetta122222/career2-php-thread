@@ -5,7 +5,6 @@
  */
 
 session_start();
-new Thread();
 
 function setToken()
 {
@@ -65,64 +64,24 @@ if (empty($_SESSION['token'])) {
         <h2 class="text-muted py-3">スレッド</h2>
 <?php
 
-date_default_timezone_set('Asia/Tokyo');
 const THREAD_FILE = 'toukou.txt';
 
-require_once 'Thread.php';
+require_once 'thread.php';
 $thread = new Thread('掲示板App');
 
-function writeData()
-{
-    checkToken();
-
-    $personal_name = $_POST['personal_name'];
-    $contents = $_POST['contents'];
-    $contents = nl2br($contents);
-
-    $data = "<hr>\n";
-    $data = $data."<p>投稿日時: ".date("Y/m/d H:i:s")."</p>\n";
-    $data = $data."<p>投稿者:".$personal_name."</p>\n";
-    $data = $data."<p>内容:</p>\n";
-    $data = $data."<p>".$contents."</p>\n";
-
-    $fp = fopen(THREAD_FILE, 'a');
-    
-
-    if ($fp) {
-        if (flock($fp, LOCK_EX)) {
-            if (fwrite($fp, $data) === false) {
-                print('ファイル書き込みに失敗しました');
-            }
-
-            flock($fp, LOCK_UN);
-        } else {
-            print('ファイルロックに失敗しました');
-        }
-    }
-
-    fclose($fp);
-}
-
-function deleteData()
-{
-    file_put_contents(THREAD_FILE, "");
-}
-
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    if (isset($_POST["method"]) && $_POST["method"] === "DELETE") {
-        deleteData();
-    } else {
-        writeData();
-    }
+  if (isset($_POST["method"]) && $_POST["method"] === "DELETE") {
+      $thread->delete();
+  } else {
+      $thread->post($_POST['personal_name'], $_POST['contents']);
+  }
 
-    // ブラウザのリロード対策
-    $redirect_url = $_SERVER['HTTP_REFERER'];
-    header("Location: $redirect_url");
-    exit;
+  // ブラウザのリロード対策
+  $redirect_url = $_SERVER['HTTP_REFERER'];
+  header("Location: $redirect_url");
+  exit;
 }
-
 echo $thread->getList();
-
 ?>
 
     </div>
