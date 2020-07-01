@@ -1,202 +1,142 @@
 <?php
-  session_start();
-  new Thread();
 
-  function setToken()
-  {
-      $token = sha1(uniqid(mt_rand(), true));
-      $_SESSION['token'] = $token;
-  }
+/**
+ * 職業実践2 - 掲示板アプリ
+ */
 
-  function checkToken()
-  {
-      if (empty($_SESSION['token'])) {
-          echo "Sessionが空です";
-          exit;
-      }
+session_start();
+new Thread();
 
-      if (($_SESSION['token']) !== $_POST['token']) {
-          echo "不正な投稿です。";
-          exit;
-      }
+function setToken()
+{
+    $token = sha1(uniqid(mt_rand(), true));
+    $_SESSION['token'] = $token;
+}
 
-      $_SESSION['token'] = null;
-  }
+function checkToken()
+{
+    if (empty($_SESSION['token'])) {
+        echo "Sessionが空です";
+        exit;
+    }
 
-  if (empty($_SESSION['token'])) {
-      setToken();
-  }
+    if (($_SESSION['token']) !== $_POST['token']) {
+        echo "不正な投稿です。";
+        exit;
+    }
+
+    $_SESSION['token'] = null;
+}
+
+if (empty($_SESSION['token'])) {
+    setToken();
+}
 ?>
-<!DOCTYPE html>
+
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" rel="stylesheet">
+    <title>掲示板App</title>
 </head>
 <body>
-    <h1>掲示板Appppppp</h1>
-    <h2>投稿フォーム</h2>
-    <form action="index.php" method="post">
-      <div class="form_child">
-        <input type="text" name="name" placeholder="名前" class="name" required >
-        <br>
-        <textarea type="text" name="naiyou"class="form" required ></textarea>
-        <br>
-        <input type="submit" name="aaa" placeholder="あああああ" class="sou">
-      </div>  
-    </form>
-    <form action="index.php" method="post">
-        <button type="submit" name="remove" class="sou era">全消しボタン</button>
-    </form>
-    <hr>
-    <h2>スレッド</h2>
-    <hr>
 
-    <?php
-        date_default_timezone_set("Asia/Tokyo");
-        const THREAD_FILE = 'toukou.txt';      
-        require_once 'Thread.php';
-        $thread = new Thread('掲示板App');
-        
-        $file = "toukou.txt";
-        if(isset($_POST['remove'])) {
-          $fp = fopen('toukou.txt', 'a');
-          echo "<p>消えたお</p>";
-          ftruncate($fp,0);
-          fclose($fp);
+<div class="container">
+    <div class="col-md-8">
+        <h1 class="text-center text-primary py-3">掲示板App</h1>
+
+        <h2 class="text-muted py-3">投稿フォーム</h2>
+        <form method="POST" action="<?php print($_SERVER['PHP_SELF']) ?>">
+            <input type="text" class="form-control" name="personal_name" placeholder="名前" required><br><br>
+            <textarea name="contents" class="form-control" rows="8" cols="40" placeholder="内容" required></textarea>
+            <br><br>
+            <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
+            <input class="btn btn-primary"  type="submit" name="btn" value="投稿する">
+        </form>
+
+
+        <form method="POST" action="<?php print($_SERVER['PHP_SELF']) ?>">
+            <input type="hidden" name="method" value="DELETE">
+            <button class="btn btn-danger" type="submit">投稿を全削除する</button>
+        </form>
+
+        <h2 class="text-muted py-3">スレッド</h2>
+<?php
+
+date_default_timezone_set('Asia/Tokyo');
+const THREAD_FILE = 'thread.txt';
+
+require_once './Thread.php';
+$thread = new Thread('掲示板App');
+
+function writeData()
+{
+    checkToken();
+
+    $personal_name = $_POST['personal_name'];
+    $contents = $_POST['contents'];
+    $contents = nl2br($contents);
+
+    $data = "<hr>\n";
+    $data = $data."<p>投稿日時: ".date("Y/m/d H:i:s")."</p>\n";
+    $data = $data."<p>投稿者:".$personal_name."</p>\n";
+    $data = $data."<p>内容:</p>\n";
+    $data = $data."<p>".$contents."</p>\n";
+
+    $fp = fopen(THREAD_FILE, 'a');
+    
+
+    if ($fp) {
+        if (flock($fp, LOCK_EX)) {
+            if (fwrite($fp, $data) === false) {
+                print('ファイル書き込みに失敗しました');
+            }
+
+            flock($fp, LOCK_UN);
+        } else {
+            print('ファイルロックに失敗しました');
         }
-        else if(@$_POST['aaa']) {
-            //POSTされたときは書き込み処理をする
-            if ($fp == false) {
-              print "このファイルには書き込みできません。<br>\n";
-            }
-            else{
-              
-              fwrite($fp,"<hr>");
-              fwrite($fp,"<ul>");
-              fwrite($fp,"<li>");
-              fwrite($fp, "投稿時間：");
-              fwrite ($fp,date("Y年m月d日 H時i分s秒"));
-              fwrite($fp,"</li>");
-              fwrite($fp,"<li>");
-              fwrite($fp,"名前：");
-              fwrite($fp, $_POST['name']);
-              fwrite($fp,"</li>");
-              fwrite($fp,"<li>");
-              fwrite($fp,"内容：");
-              fwrite($fp, $_POST['naiyou']);
-              fwrite($fp,"</li>");
-              fwrite($fp,"</ul>");
-              fwrite($fp,"<hr>");
-              
+    }
 
-              $ret_str = file_get_contents( $file );
-              echo($ret_str);
-              fclose($fp);
-              
-            }
-            
-          }
-          echo $thread->getList();
+    fclose($fp);
+}
 
-          //$text = file_get_contents($file);
-          //$text = htmlspecialchars($text);
-    ?>
-    <style>
-    body{
-      margin:0;
-    }
-    p{
-      text-align:center;
-    }
-    h1{
-      margin-top:0;
-      padding:5px;
-      background:skyblue;
-      text-align:center;
-    }
-    .name{
-      word-break: break-word;
-      width: 30%;
-      margin-right: calc(100%/3);
-      margin-left: calc(100%/3);
-    }
-    h2{
-      text-align:center;
-    }
-    input{
-     margin:10px auto;
-     
-    }
-    .sou{
-      font-weight:bold;
-      width:20%;
-      margin-right:40%;
-      margin-left:40%;
-      height:2rem;
-      background:transparent;
-      color:#7a7ae0;
-      border-radius:3rem;
-      border: solid 3px #7a7ae0;
-    }
-   .sou:active{
-    border-radius:3rem;
-    border: solid 3px #7a7ae0;
-    background:green;
-     transition:2s;
-     border:none;
-   
+function deleteData()
+{
+    file_put_contents(THREAD_FILE, "");
+}
 
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    if (isset($_POST["method"]) && $_POST["method"] === "DELETE") {
+        deleteData();
+    } else {
+        writeData();
     }
-    hr{
-      width:80vw
-    }
-    
-    ul{
-      margin:2rem auto;
-      width:80vw;
-    }
-    .era{
-      border:red solid 3px;
-      color:red;
-    }
-    li{
-      list-style-type:none;
-      word-break: break-word;
-    }
-    .form{
-      
-      width: 30%;
-      height:100px;
-      margin-right: calc(100%/3);
-      margin-left: calc(100%/3);
-      resize:none;
-    }
-    @media(max-width:480px){
-      .sou{
-        width:60%;
-        margin:5% 20% 0 20%;
-      }
-      .name{
-        width:70%;
-        margin-right:15%;
-        margin-left:15%;
-      }
-      .form{
-        width:70%;
-        height:30vh;
-        margin-top:5%;
-        margin-right:15%;
-        margin-left:15%;
-      }
-    }
-    
-    </style>
-    
-    <script>
-    
-    </script>
+
+    // ブラウザのリロード対策
+    $redirect_url = $_SERVER['HTTP_REFERER'];
+    header("Location: $redirect_url");
+    exit;
+}
+
+echo $thread->getList();
+
+?>
+
+    </div>
+</div>
+
+<!-- JS, Popper.js, and jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+</script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+</script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous">
+</script>
 </body>
 </html>
