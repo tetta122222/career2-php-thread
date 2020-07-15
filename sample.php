@@ -11,8 +11,8 @@ try{
     foreach ($dbh->query($sql) as $row) {
         // echo $row['name'].'さんは'.$row['club'].'所属です。<br />';
         echo '<p>'.$row['name'].'</p>';
-        echo '<p>'.$row['content'].'</p>'
-        echo '<p>'.$row['create_at'].'</p>'
+        echo '<p>'.$row['content'].'</p>';
+        echo '<p>'.$row['create_at'].'</p>';
     }
 }catch (PDOException $e){
     print('Error:'.$e->getMessage());

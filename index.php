@@ -15,7 +15,7 @@ function setToken()
 function checkToken()
 {
     if (empty($_SESSION['token'])) {
-        echo "Sessionが空です";
+        echo "Sessionが空でーす";
         exit;
     }
 
